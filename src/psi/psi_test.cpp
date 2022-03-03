@@ -1,16 +1,13 @@
-#include "alice.cpp"
-#include "bob.cpp"
+#include "alice.hpp"
+#include "bob.hpp"
+#include <functional>
 #include <memory>
 using std::shared_ptr;
 
-int main() {
-    /*
-    vector<int> v1 = {1, 2, 5, 7, 8, 9, 100, 101};
-    vector<int> v2 = {2, 3, 6, 100, 101, 200, 500, 1000};
-    */
+vector<int> v1 = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 11};
 
-    vector<int> v1 = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
-    vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 11};
+void test_PSI() {
 
     // alice's round
     shared_ptr<ALICE::Alice> alice(new ALICE::Alice(v1));
@@ -27,5 +24,9 @@ int main() {
 
     for (auto &i : ans)
         cout << i << "\n";
+}
+
+int main() {
+    test_PSI();
     return 0;
 }
