@@ -1,3 +1,5 @@
+#pragma once
+
 #include <algorithm>
 #include <cmath>
 #include <cstdlib>
@@ -10,40 +12,6 @@ using std::vector;
 const PII EMPTY = {-1, -1};
 
 class CuckooHash {
-
-public:
-    void put(int key, int value) {
-        auto hash_val_1 = hash1(key), hash_val_2 = hash2(key);
-        if (bucket[hash_val_1].first == key)  
-            bucket[hash_val_1].second = value;
-        else if (bucket[hash_val_2].first == key)     
-            bucket[hash_val_2].second = value;
-        else
-            put_new_val(key, value);
-    }
-
-    PII get(int key) {
-        auto hash_val_1 = hash1(key), hash_val_2 = hash2(key);
-        if (bucket[hash_val_1].first == key) {
-            return bucket[hash_val_1];
-        }
-        if (bucket[hash_val_2].first == key) {
-            return bucket[hash_val_2];
-        }
-        return EMPTY;
-    }
-    
-    void del(int key) {
-        auto hash_val_1 = hash1(key), hash_val_2 = hash2(key);
-        if (bucket[hash_val_1].first == key) {
-            bucket[hash_val_1] = EMPTY;
-            --count_;
-        }
-        if (bucket[hash_val_2].first == key) {
-            bucket[hash_val_2] = EMPTY;
-            --count_;
-        }
-    }
 
 private:
     // bucket to store the k-v elements.
@@ -88,9 +56,10 @@ private:
         // add new element into hash table
         ++count_;
 
-        // set load balance between [0, 0.25].
+        // set load factor alpha between [0, 0.25].
         // why the bound is 0.25?
         // this maybe a magic number from the paper.
+        // update: alpha = 1 is also ok!
         if (4 * count_ >= static_cast<int>(bucket.size()))
             resize();
 
@@ -133,12 +102,69 @@ private:
 
         // do a in-place rehash
         for (int i = 0; i < static_cast<int>(bucket.size()); ++i) {
-            if (bucket[i] == EMPTY) continue;
+            if (bucket[i] == EMPTY)
+                continue;
             auto old = bucket[i];
             bucket[i] = EMPTY;
             put_new_val(old.first, old.second);
-        
         }
+    }
+
+public:
+    void put(int key, int value) {
+        auto hash_val_1 = hash1(key), hash_val_2 = hash2(key);
+        if (bucket[hash_val_1].first == key)
+            bucket[hash_val_1].second = value;
+        else if (bucket[hash_val_2].first == key)
+            bucket[hash_val_2].second = value;
+        else
+            put_new_val(key, value);
+    }
+
+    PII get(int key) {
+        auto hash_val_1 = hash1(key), hash_val_2 = hash2(key);
+        if (bucket[hash_val_1].first == key) {
+            return bucket[hash_val_1];
+        }
+        if (bucket[hash_val_2].first == key) {
+            return bucket[hash_val_2];
+        }
+        return EMPTY;
+    }
+
+    void del(int key) {
+        auto hash_val_1 = hash1(key), hash_val_2 = hash2(key);
+        if (bucket[hash_val_1].first == key) {
+            bucket[hash_val_1] = EMPTY;
+            --count_;
+        }
+        if (bucket[hash_val_2].first == key) {
+            bucket[hash_val_2] = EMPTY;
+            --count_;
+        }
+    }
+
+    int size() {
+        return static_cast<int>(bucket.size());
+    }
+
+    int get_hash_param1() {
+        return hash1_;
+    }
+
+    int get_hash_param2() {
+        return hash2_;
+    }
+
+    int get_actual_hash_val(int key) {
+        auto hash_val_1 = hash1(key), hash_val_2 = hash2(key);
+        if (bucket[hash_val_1].first == key) {
+            return hash_val_1;
+        }
+        if (bucket[hash_val_2].first == key) {
+            return hash_val_2;
+        }
+        return -1;
     }
 };
 
