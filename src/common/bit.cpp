@@ -13,4 +13,3 @@ int gen_bit_string() {
     }
     return val;
 }
-

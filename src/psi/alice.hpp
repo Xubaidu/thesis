@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../utils.cpp"
+#include "../common/bit.cpp"
 #include <utility>
 #include <vector>
 using std::vector;
