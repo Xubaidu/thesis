@@ -1475,7 +1475,7 @@ void setup_param2() {
 void test_cuckoo_hash() {
     using CUCKOO_HASH::CuckooHash;
     using CUCKOO_HASH::EMPTY;
-    auto CH = shared_ptr<CuckooHash>(new CuckooHash());
+    auto CH = shared_ptr<CuckooHash<int, int>>(new CuckooHash<int, int>());
     setup_param2();
     vector<string> ans;
     for (int i = 0; i < static_cast<int>(command.size()); ++i) {

@@ -44,7 +44,7 @@ class Smart_Bob : public Bob_Base {
 private:
     vector<int> b;
     vector<int> b_set;
-    CUCKOO_HASH::CuckooHash CH;
+    CUCKOO_HASH::CuckooHash<int, int> CH;
 
 public:
     Smart_Bob(const vector<int> &_b) :

@@ -4,19 +4,20 @@
 #include <cmath>
 #include <cstdlib>
 #include <vector>
+using std::vector;
 
 namespace CUCKOO_HASH {
-
 using PII = std::pair<int, int>;
-using std::vector;
 const PII EMPTY = {-1, -1};
 
+template<typename K, typename V>
 class CuckooHash {
+using PKV = std::pair<K, V>;
 private:
     // bucket to store the k-v elements.
     // suppose size = bucket_size,
     // the bucket is splited into [0, size / 2), [size / 2, size).
-    vector<PII> bucket = vector<PII>(2, EMPTY);
+    vector<PKV> bucket = vector<PKV>(2, EMPTY);
 
     // actual number of elements in the bucket.
     int count_ = 0;
@@ -32,13 +33,13 @@ private:
 
     // calculate hash value.
     // when the hash_param is changed, a new hash function is generated.
-    int hash(int hash_param, int key) {
-        return std::hash<int>()(key) / hash_param % (static_cast<int>(bucket.size()) / 2);
+    int hash(int hash_param, K key) {
+        return std::hash<K>()(key) / hash_param % (static_cast<int>(bucket.size()) / 2);
     }
-    int hash1(int key) {
+    int hash1(K key) {
         return hash(hash1_, key);
     }
-    int hash2(int key) {
+    int hash2(K key) {
         return hash(hash2_, key) + (static_cast<int>(bucket.size()) / 2);
     }
 
@@ -50,7 +51,7 @@ private:
     }
 
     // put new val into bucket
-    void put_new_val(int key, int value) {
+    void put_new_val(K key, V value) {
         // add new element into hash table
         ++count_;
 
@@ -108,7 +109,7 @@ private:
     }
 
 public:
-    void put(int key, int value) {
+    void put(K key, V value) {
         auto hash_val_1 = hash1(key), hash_val_2 = hash2(key);
         if (bucket[hash_val_1].first == key)
             bucket[hash_val_1].second = value;
@@ -118,7 +119,7 @@ public:
             put_new_val(key, value);
     }
 
-    PII get(int key) {
+    PKV get(K key) {
         auto hash_val_1 = hash1(key), hash_val_2 = hash2(key);
         if (bucket[hash_val_1].first == key) {
             return bucket[hash_val_1];
@@ -129,7 +130,7 @@ public:
         return EMPTY;
     }
 
-    void del(int key) {
+    void del(V key) {
         auto hash_val_1 = hash1(key), hash_val_2 = hash2(key);
         if (bucket[hash_val_1].first == key) {
             bucket[hash_val_1] = EMPTY;
@@ -153,7 +154,7 @@ public:
         return hash2_;
     }
 
-    int get_actual_hash_val(int key) {
+    int get_actual_hash_val(K key) {
         auto hash_val_1 = hash1(key), hash_val_2 = hash2(key);
         if (bucket[hash_val_1].first == key) {
             return hash_val_1;
