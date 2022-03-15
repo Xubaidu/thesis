@@ -12,7 +12,6 @@ using std::vector;
 const PII EMPTY = {-1, -1};
 
 class CuckooHash {
-
 private:
     // bucket to store the k-v elements.
     // suppose size = bucket_size,
@@ -52,7 +51,6 @@ private:
 
     // put new val into bucket
     void put_new_val(int key, int value) {
-
         // add new element into hash table
         ++count_;
 
@@ -93,7 +91,6 @@ private:
     }
 
     void rehash() {
-
         // choose new hash function.
         // with multiple testing experiments,
         // here counts a lot to the efficiency of our data structure.

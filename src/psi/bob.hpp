@@ -23,7 +23,9 @@ private:
     vector<int> b_set;
 
 public:
-    Naive_Bob(const vector<int> &_b) : b(_b) {}
+    Naive_Bob(const vector<int> &_b) :
+        b(_b) {
+    }
     void calc_b_set(const vector<vector<vector<int>>> &K) {
         for (int i = 0; i < static_cast<int>(b.size()); ++i)
             b_set.emplace_back(OPRF(b[i], K[i]));
@@ -45,7 +47,9 @@ private:
     CUCKOO_HASH::CuckooHash CH;
 
 public:
-    Smart_Bob(const vector<int> &_b) : b(_b) {}
+    Smart_Bob(const vector<int> &_b) :
+        b(_b) {
+    }
     void pre_work() {
         for (auto &i : b)
             CH.put(i, 1);

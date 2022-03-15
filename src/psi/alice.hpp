@@ -59,7 +59,8 @@ public:
     // TODO: these functions will cause copy assignment of big object
     // To optimize: a(std::move(_a)).
     // then the a outside Alice will be eliminated.
-    Naive_Alice(const vector<int> &_a) : a(_a) {
+    Naive_Alice(const vector<int> &_a) :
+        a(_a) {
         n = static_cast<int>(a.size());
         K.resize(n);
     }
@@ -106,7 +107,8 @@ private:
     vector<int> a_set;
 
 public:
-    Smart_Alice(const vector<int> &_a, int _n) : a(_a), n(_n) {
+    Smart_Alice(const vector<int> &_a, int _n) :
+        a(_a), n(_n) {
         K.resize(n);
     }
     void gen_OPR_set_group() {

@@ -10,7 +10,6 @@ vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 11};
 vector<int> std_out = {2, 3, 4, 5, 6, 7, 11};
 
 vector<int> test_PSI() {
-
     // alice's round
     shared_ptr<ALICE::Naive_Alice> alice(new ALICE::Naive_Alice(v1));
     alice->gen_OPR_set_group();

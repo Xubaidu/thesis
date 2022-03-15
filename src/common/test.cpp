@@ -4,7 +4,8 @@
 using std::cout;
 using std::vector;
 
-template <typename T> bool check(const vector<T> &in, const vector<T> &out) {
+template <typename T>
+bool check(const vector<T> &in, const vector<T> &out) {
     if (static_cast<int>(in.size()) != static_cast<int>(out.size()))
         return false;
     for (int i = 0; i < static_cast<int>(in.size()); ++i) {
@@ -14,7 +15,8 @@ template <typename T> bool check(const vector<T> &in, const vector<T> &out) {
     return true;
 }
 
-template <typename T> void TEST(const vector<T> &out, const vector<T> &std_out, bool flag) {
+template <typename T>
+void TEST(const vector<T> &out, const vector<T> &std_out, bool flag) {
     bool ret = (out == std_out);
     if (ret == flag)
         cout << "pass!\n";

@@ -11,14 +11,17 @@ using std::unordered_map;
 using std::vector;
 namespace SI {
 
-template <typename T> class SetIntersection {
+template <typename T>
+class SetIntersection {
 private:
     vector<T> IN_1, IN_2;
     vector<T> OUT;
     vector<int> OUT_Index;
 
 public:
-    SetIntersection(const vector<T> &_IN_1, const vector<T> &_IN_2) : IN_1(_IN_1), IN_2(_IN_2) {}
+    SetIntersection(const vector<T> &_IN_1, const vector<T> &_IN_2) :
+        IN_1(_IN_1), IN_2(_IN_2) {
+    }
     void Intersect() {
         unordered_map<T, bool> mp;
         for (int i = 0; i < static_cast<int>(IN_1.size()); ++i) {
@@ -47,7 +50,8 @@ public:
     }
 };
 
-template <typename T> vector<int> display(const vector<T> &IN_1, const vector<T> &IN_2) {
+template <typename T>
+vector<int> display(const vector<T> &IN_1, const vector<T> &IN_2) {
     // using shared_ptr to implement RAII (Resources Acquisition Is Initialization)
     shared_ptr<SetIntersection<T>> SI(new SetIntersection<T>(IN_1, IN_2));
     SI->Intersect();
