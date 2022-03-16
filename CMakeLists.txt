@@ -11,4 +11,6 @@ SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build/bin)
 
 # 编译源码生成目标
 add_executable(cuckoo_test src/cuckoo/cuckoo_test.cpp)
-add_executable(psi_test src/psi/psi_test.cpp)
+# add_executable(psi_test src/psi/psi_test.cpp)
+add_executable(server src/server.cpp)
+add_executable(client src/client.cpp)

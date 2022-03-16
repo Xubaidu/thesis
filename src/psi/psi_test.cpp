@@ -1,15 +1,19 @@
 #include "alice.hpp"
 #include "bob.hpp"
 #include "../common/test.cpp"
+#include "../common/utils.cpp"
 #include <functional>
 #include <memory>
 using std::shared_ptr;
+using std::endl;
 
 vector<int> v1 = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
 vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 11};
 vector<int> std_out = {2, 3, 4, 5, 6, 7, 11};
 
 vector<int> test_PSI() {
+    cout << "v1: " << vector_to_string(v1) << endl;
+    cout << "v2: " << vector_to_string(v2) << endl;
     // alice's round
     shared_ptr<ALICE::Naive_Alice> alice(new ALICE::Naive_Alice(v1));
     alice->gen_OPR_set_group();
@@ -47,8 +51,10 @@ vector<int> test_smart_PSI() {
     return ans;
 }
 
+/*
 int main() {
     TEST(test_PSI(), std_out, true);
     TEST(test_smart_PSI(), std_out, true);
     return 0;
 }
+*/
