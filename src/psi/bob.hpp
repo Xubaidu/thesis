@@ -15,7 +15,7 @@ inline int OPRF(int elem, const vector<vector<int>> &OPR_set) {
 }
 class Bob_Base {
     virtual void calc_b_set(const vector<vector<vector<int>>> &K) = 0;
-    virtual vector<int> get_intersection(const vector<int> &a_set) = 0;
+    virtual vector<int> get_intersection(const vector<int> &a_set, int method) = 0;
 };
 class Naive_Bob : Bob_Base {
 private:
@@ -30,8 +30,8 @@ public:
         for (int i = 0; i < static_cast<int>(b.size()); ++i)
             b_set.emplace_back(OPRF(b[i], K[i]));
     }
-    vector<int> get_intersection(const vector<int> &a_set) {
-        auto Set_Intersection = SI::display<int>(a_set, b_set);
+    vector<int> get_intersection(const vector<int> &a_set, int method) {
+        auto Set_Intersection = SI::display<int>(a_set, b_set, method);
         vector<int> ans;
         for (auto i : Set_Intersection) {
             ans.push_back(b[i]);
@@ -69,8 +69,8 @@ public:
             b_set.emplace_back(OPRF(elem, K[hash_val]));
         }
     }
-    vector<int> get_intersection(const vector<int> &a_set) {
-        auto Set_Intersection = SI::display<int>(a_set, b_set);
+    vector<int> get_intersection(const vector<int> &a_set, int method) {
+        auto Set_Intersection = SI::display<int>(a_set, b_set, method);
         vector<int> ans;
         for (auto i : Set_Intersection) {
             ans.push_back(b[i]);

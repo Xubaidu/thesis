@@ -19,7 +19,8 @@ const string sender_server = "server";
 const string sender_client = "client";
 
 int send_msg(int fd, const string &sender, const string &send_str) {
-    int actual_send_bytes = send(fd, send_str.c_str(), send_str.size(), 0);
+    int actual_send_bytes = write(fd, send_str.c_str(), send_str.size());
+    // sleep(1);
     if (actual_send_bytes > 0) {
         cout << sender + " send: " << send_str << endl;
     } else if (actual_send_bytes == 0) {
@@ -33,7 +34,8 @@ int send_msg(int fd, const string &sender, const string &send_str) {
 int recv_msg(int fd, const string &receiver, string &recv_str) {
     char str[1024];
     memset(str, 0, sizeof(str));
-    int actual_recv_bytes = recv(fd, str, sizeof(str), 0);
+    int actual_recv_bytes = read(fd, str, sizeof(str));
+    // sleep(1);
     if (actual_recv_bytes > 0) {
         recv_str = string(str);
         cout << receiver + " receive: " << recv_str << endl;

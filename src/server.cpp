@@ -1,22 +1,25 @@
 #include "network/socket.cpp"
+#include "psi/psi_test.cpp"
 
 void alice_round(int fd) {
-    cout << "alice's round: send OPRF value to bob" << endl;
-    int loop_cnt = 0;
-    while (1) {
-        loop_cnt++;
+    cout << "A = " << vector_to_string(v1) << endl;
+    cout << "alice is sending OPRF value to bob" << endl;
+
+    // TODO：这里按理说是 while (1)
+    // 但是发送有问题，所以先改成 for 循环，需要想个办法
+    for (int loop_cnt = 1; loop_cnt <= 10; ++loop_cnt) {
         string recv_str;
         auto actual_recv_bytes = recv_msg(fd, sender_server, recv_str);
-        if (actual_recv_bytes <= 0) break;
         string send_str("OPRF" + std::to_string(loop_cnt));
-        auto actual_send_bytes = send_msg(fd, sender_server, send_str); // 模板函数可以不显式地著名模板参数，实参演绎会自动推导
-        if (actual_send_bytes <= 0) break;
+        auto actual_send_bytes = send_msg(fd, sender_server, send_str);
     }
 
-    cout << "alice's round: send a_set to bob" << endl;
+    cout << "alice is sending a_set to bob" << endl;
     string send_str("a_set");
-    auto actual_send_bytes = recv_msg(fd, sender_server, send_str);
+    auto actual_send_bytes = send_msg(fd, sender_server, send_str);
+    cout << actual_send_bytes << endl;
 
+    cout << "alice is receving c_set" << endl;
     string recv_str;
     auto actual_recv_bytes = recv_msg(fd, sender_server, recv_str);
 }
@@ -62,8 +65,27 @@ int main() {
         show_client_info(&client_addr);
 
         // 5. Alice's round.
-        alice_round(client_fd);
+        //alice_round(client_fd);
+        cout << "A = " << vector_to_string(v1) << endl;
+        cout << "alice is sending OPRF value to bob" << endl;
 
+        // TODO：这里按理说是 while (1)
+        // 但是发送有问题，所以先改成 for 循环，需要想个办法
+        for (int loop_cnt = 1; loop_cnt <= 10; ++loop_cnt) {
+            string recv_str;
+            auto actual_recv_bytes = recv_msg(client_fd, sender_server, recv_str);
+            string send_str("OPRF" + std::to_string(loop_cnt));
+            auto actual_send_bytes = send_msg(client_fd, sender_server, send_str);
+        }
+
+        cout << "alice is sending a_set to bob" << endl;
+        string send_str("a_set");
+        auto actual_send_bytes = send_msg(client_fd, sender_server, send_str);
+        cout << actual_send_bytes << endl;
+
+        cout << "alice is receving c_set" << endl;
+        string recv_str;
+        auto actual_recv_bytes = recv_msg(client_fd, sender_server, recv_str);
         // 6. close
         close(client_fd);
     }
