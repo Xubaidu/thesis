@@ -1,5 +1,11 @@
 # reference
 
+## crypt
+
+[1. RSA加密算法](https://zh.wikipedia.org/zh-hans/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95)
+[2. 米勒-拉宾素性检验](https://zh.wikipedia.org/wiki/%E7%B1%B3%E5%8B%92-%E6%8B%89%E5%AE%BE%E6%A3%80%E9%AA%8C)
+[3. 【朝夕的ACM笔记】数论-Miller Rabin素数判定](https://zhuanlan.zhihu.com/p/349360074)
+[4. 1-out-2 OT](https://blog.csdn.net/YaLunDong/article/details/84779473)
 ## psi
 
 [1. 多方安全计算热点：隐私保护集合求交技术 (PSI) 分析研究报告](https://anquan.baidu.com/upload/ue/file/20190814/1565763561975581.pdf)

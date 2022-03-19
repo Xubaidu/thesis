@@ -1,4 +1,5 @@
 #include "si.hpp"
+#include "../common/utils.cpp"
 #include "../common/test.cpp"
 
 const int test_time = 10;
