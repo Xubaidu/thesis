@@ -10,7 +10,7 @@ set(CMAKE_EXPORT_COMPILECOMMANDS ON)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build/bin)
 
 # 编译源码生成目标
-# add_executable(cuckoo_test src/cuckoo/cuckoo_test.cpp)
+add_executable(cuckoo_test src/cuckoo/cuckoo_test.cpp)
 # add_executable(psi_test src/psi/psi_test.cpp)
 add_executable(si_test src/si/si_test.cpp)
 add_executable(crypt_test src/network/crypt_test.cpp)

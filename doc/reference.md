@@ -6,6 +6,7 @@
 [2. 米勒-拉宾素性检验](https://zh.wikipedia.org/wiki/%E7%B1%B3%E5%8B%92-%E6%8B%89%E5%AE%BE%E6%A3%80%E9%AA%8C)
 [3. 【朝夕的ACM笔记】数论-Miller Rabin素数判定](https://zhuanlan.zhihu.com/p/349360074)
 [4. 1-out-2 OT](https://blog.csdn.net/YaLunDong/article/details/84779473)
+[5. OT wikipedia](https://en.wikipedia.org/wiki/Oblivious_transfer#1%E2%80%932_oblivious_transfer)
 ## psi
 
 [1. 多方安全计算热点：隐私保护集合求交技术 (PSI) 分析研究报告](https://anquan.baidu.com/upload/ue/file/20190814/1565763561975581.pdf)
@@ -36,7 +37,7 @@
 ## uml
 
 [1. 快速学习时序图：时序图简介、画法及实例](http://www.woshipm.com/ucd/607593.html)
-
+[2. 认识 UML 类关系——依赖、关联、聚合、组合、泛化](https://blog.csdn.net/K346K346/article/details/59582926)
 ## system
 
 [1. 进程间8种通信方式详解](https://cloud.tencent.com/developer/article/1690556)

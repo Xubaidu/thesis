@@ -8,7 +8,7 @@ using std::string;
 namespace CRYPT {
 const std::vector<int> base = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
 
-inline int qpow(int a, int b, int mod) {
+int qpow(int a, int b, int mod) {
     int ans = 1;
     while (b) {
         if (b & 1) ans = 1LL * ans * a % mod;
@@ -40,7 +40,7 @@ int get_inv(int &a, int &m) {
 // 原理：要么全是 1，要么先出现 -1 然后全是 1
 // 本质上是在费马检测的基础上加入了二次探测
 // 时间复杂度 O(klogP)
-inline bool miller_rabin(int p) {
+bool miller_rabin(int p) {
     int t = p - 1;
     int s = 0;
     while (!(t & 1)) {
@@ -76,13 +76,13 @@ inline bool miller_rabin(int p) {
     return true;
 }
 
-inline bool isprime(int p) {
+bool isprime(int p) {
     if (!(p & 1)) return false; // 特判偶数
     if (p < 3) return p == 2;   // 特判小于 3 的数
     return miller_rabin(p);
 }
 
-inline bool isprime_brute(int p) {
+bool isprime_brute(int p) {
     if (!(p & 1)) return false; // 特判偶数
     if (p < 3) return p == 2;   // 特判小于 3 的数
     for (int i = 2; i * i <= p; ++i) {
@@ -98,7 +98,7 @@ int bits2int(const string& bits) {
 }
 
 // 生成长度为 L 的大素数
-inline int gen_big_prime(int L) {
+int gen_big_prime(int L) {
     while (1) {
         string prime("1");
         for (int i = 1; i < L - 1; ++i) {

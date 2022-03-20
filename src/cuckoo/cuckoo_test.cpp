@@ -3,11 +3,15 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <sys/_types/_clock_t.h>
+#include <unordered_map>
 #include <vector>
-using std::cout;
+#include <chrono>
+#include "../common/test.cpp"
 using std::shared_ptr;
 using std::string;
 using std::vector;
+using std::unordered_map;
 
 vector<string> command;
 vector<int> val;
@@ -1476,7 +1480,6 @@ void test_cuckoo_hash() {
     using CUCKOO_HASH::CuckooHash;
     using CUCKOO_HASH::EMPTY;
     auto CH = shared_ptr<CuckooHash<int, int>>(new CuckooHash<int, int>());
-    setup_param2();
     vector<string> ans;
     for (int i = 0; i < static_cast<int>(command.size()); ++i) {
         if (command[i] == "contains") {
@@ -1492,10 +1495,33 @@ void test_cuckoo_hash() {
             ans.emplace_back("null");
         }
     }
-    cout << ans.size() << "\n";
+}
+
+void test_benchmark() {
+    unordered_map<int, int> mp;
+    vector<string> ans;
+    for (int i = 0; i < static_cast<int>(command.size()); ++i) {
+        if (command[i] == "contains") {
+            if (mp.find(val[i]) != mp.end())
+                ans.emplace_back("true");
+            else
+                ans.emplace_back("false");
+        } else if (command[i] == "remove") {
+            mp.erase(val[i]);
+            ans.emplace_back("null");
+        } else {
+            mp.insert({val[i], 1});
+            ans.emplace_back("null");
+        }
+    }
 }
 
 int main() {
+    setup_param2();
     test_cuckoo_hash();
+    auto func1 = test_cuckoo_hash;
+    auto func2 = test_benchmark;
+    Time_TEST(func1);
+    Time_TEST(func2);
     return 0;
 }

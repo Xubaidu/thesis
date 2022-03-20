@@ -55,11 +55,10 @@ private:
         // add new element into hash table
         ++count_;
 
-        // set load factor alpha between [0, 0.25].
-        // why the bound is 0.25?
-        // this maybe a magic number from the paper.
-        // update: alpha = 1 is also ok!
-        if (4 * count_ >= static_cast<int>(bucket.size()))
+        // when set load factor alpha = 1.
+        // it will be relatively fast.
+        // because this decreases the time of resize;
+        if (count_ >= static_cast<double>(bucket.size()))
             resize();
 
         bool switcher = true;
@@ -163,6 +162,10 @@ public:
             return hash_val_2;
         }
         return -1;
+    }
+
+    double get_load_factor() {
+        return static_cast<double>(1.0 * count_ / static_cast<int>(bucket.size()));
     }
 };
 
