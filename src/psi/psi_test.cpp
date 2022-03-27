@@ -1,57 +1,33 @@
-#include "alice.hpp"
-#include "bob.hpp"
-#include "../common/test.cpp"
-#include "../common/utils.cpp"
-#include <functional>
-#include <memory>
-using std::shared_ptr;
+#include "psi_test.hpp"
+using TEST::Performance_TEST;
 
-vector<int> v1 = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
-vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 11};
-vector<int> std_out = {2, 3, 4, 5, 6, 7, 11};
+const vector<int> a = {100, 1000, 10000, 100000};
 
-vector<int> test_PSI() {
-    // alice's round
-    shared_ptr<ALICE::Naive_Alice> alice(new ALICE::Naive_Alice(v1));
-    alice->gen_OPR_set_group();
-    alice->calc_a_set();
-    auto K = alice->get_OPR_set_group();
-    auto a_set = alice->get_a_set();
-
-    // bob's round
-    shared_ptr<BOB::Naive_Bob> bob(new BOB::Naive_Bob(v2));
-    bob->calc_b_set(K);
-    auto ans = bob->get_intersection(a_set, 0);
-
-    return ans;
+void test_naive_psi(int n) {
+    test_PSI(n, 0);
 }
 
-vector<int> test_smart_PSI() {
-    // bob's round
-    shared_ptr<BOB::Smart_Bob> bob(new BOB::Smart_Bob(v2));
-    bob->pre_work();
-    ALICE::hash1_ = bob->get_hash_param1();
-    ALICE::hash2_ = bob->get_hash_param2();
-    ALICE::bucket_size = bob->get_hash_table_size();
-
-    // alice's round
-    shared_ptr<ALICE::Smart_Alice> alice(new ALICE::Smart_Alice(v1, ALICE::bucket_size));
-    alice->gen_OPR_set_group();
-    alice->calc_a_set();
-    auto K = alice->get_OPR_set_group();
-    auto a_set = alice->get_a_set();
-
-    // bob's round;
-    bob->calc_b_set(K);
-    auto ans = bob->get_intersection(a_set, 0);
-
-    return ans;
+void test_smart_psi(int n) {
+    test_PSI(n, 1);
 }
 
-/*
+void test() {
+    cout << "PSI TEST\n";
+    for (int i = 0; i < static_cast<int>(a.size()); ++i) {
+        cout << "data size = " << a[i] << "\n";
+        auto func1 = test_naive_psi;
+        auto func2 = test_smart_psi;
+        if (i < 2) {
+            cout << "naive psi (data size <= 1000): ";
+            Performance_TEST<int>(func1, a[i]);
+        }
+        cout << "smart psi: ";
+        Performance_TEST<int>(func2, a[i]);
+        puts("---");
+    }
+}
+
 int main() {
-    TEST(test_PSI(), std_out, true);
-    TEST(test_smart_PSI(), std_out, true);
+    test();
     return 0;
 }
-*/

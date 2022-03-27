@@ -1,7 +1,9 @@
 #include "network/socket.cpp"
-#include "psi/psi_test.cpp"
+#include "psi/psi_test.hpp"
 #include "common/utils.cpp"
 #include <unistd.h>
+
+const vector<int> v2 = {2, 3, 4, 5};
 
 int main() {
     // 1. 创建socket
@@ -40,8 +42,10 @@ int main() {
     string recv_str;
     auto actual_recv_bytes = recv_msg(client_fd, sender_client, recv_str);
 
+    auto v1 = {1, 2, 3, 4};
+
     cout << "bob is calculating the intersection of a_set and b_set" << endl;
-    auto si = test_PSI();
+    auto si = test_PSI_impl(v1, v2);
 
     cout << "bob is sending c_set to alice" << endl;
     string ans = vector_to_string(si);

@@ -1,5 +1,7 @@
 #include "network/socket.cpp"
-#include "psi/psi_test.cpp"
+#include "common/utils.cpp"
+
+const vector<int> v1 = {1, 2, 3, 4, 5};
 
 void alice_round(int fd) {
     cout << "A = " << vector_to_string(v1) << endl;
@@ -23,6 +25,7 @@ void alice_round(int fd) {
     string recv_str;
     auto actual_recv_bytes = recv_msg(fd, sender_server, recv_str);
 }
+
 
 int main() {
     // 1. 注册 socket

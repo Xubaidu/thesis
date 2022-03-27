@@ -64,8 +64,11 @@ public:
                 cout << OUT[i] << "]\n";
         }
     }
-    vector<int> get_out_index() {
+    vector<int> get_out_index() const {
         return OUT_Index;
+    }
+    vector<int> get_out() const {
+        return OUT;
     }
 };
 
