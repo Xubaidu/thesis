@@ -37,3 +37,4 @@ build/
 # .vscode
 .vscode/
 pic/
+*.pdf
