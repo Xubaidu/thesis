@@ -36,5 +36,5 @@ build/
 
 # .vscode
 .vscode/
-pic/
 *.pdf
+.DS_Store
